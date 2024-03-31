@@ -1,0 +1,31 @@
+{
+  "name": "herpstat-collector",
+  "version": "1.0.0",
+  "description": "Collects metrics from a herpstate device",
+  "main": "lib/collector.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeledwards/herpstat-collector.git"
+  },
+  "keywords": [
+    "herpstat",
+    "collector",
+    "metrics",
+    "api.json"
+  ],
+  "author": "Joel Edwards <joeledwards@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/joeledwards/herpstat-collector/issues"
+  },
+  "homepage": "https://github.com/joeledwards/herpstat-collector#readme",
+  "dependencies": {
+    "@buzuli/app": "^1.3.0",
+    "@buzuli/json": "^2.1.1",
+    "axios": "^1.6.8",
+    "ioredis": "^5.3.2"
+  }
+}
