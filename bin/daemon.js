@@ -7,23 +7,27 @@ const collector = require('../lib/collector')
 
 const options = yargs
   .env('HERPSTAT_COLLECTOR')
-  .option('herpstat-device-id', {
+  .option('device-alias', {
     type: 'string',
-    desc: 'The id to use when saving metrics for this device',
+    desc: 'The alias to use when saving metrics for this device',
     default: 'herpstat',
-    alias: ['id'],
+    alias: ['alias'],
   })
-  .option('herpstat-device-url', {
+  .option('device-url', {
     type: 'string',
     desc: 'The URL of the Herpstat device from which to collect metrics',
     default: 'http://herpstat:8080',
     alias: ['url'],
   })
-  .option('redis-server', {
+  .option('redis-uri', {
     type: 'string',
     desc: 'The Redis server to which metrics should be saved',
     default: 'redis://localhost:6379',
     alias: ['redis'],
+  })
+  .option('data-path', {
+    type: 'string',
+    desc: 'The directory where full records should be written',
   })
   .option('check-interval', {
     type: 'number',
@@ -33,6 +37,6 @@ const options = yargs
   })
   .parse()
 
-app(async function () {
+app(async () => {
   await collector(options)
 })
