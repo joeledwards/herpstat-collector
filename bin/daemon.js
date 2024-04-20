@@ -33,6 +33,10 @@ const options = yargs
     default: 60,
     alias: ['interval'],
   })
+  .option('verbose', {
+    type: 'boolean',
+    desc: 'Log more details',
+  })
   .parse()
 
 app(async () => {
