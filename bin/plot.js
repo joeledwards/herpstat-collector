@@ -71,8 +71,6 @@ app(async () => {
     }
   })
 
-  console.info({ data })
-
   Object.keys(data).forEach(outputId => {
     const {
       outputName,
@@ -107,12 +105,6 @@ function downsample (values, max) {
     const remainder = values.length % max
     const skipCount = (remainder === 0) ? factor - 1 : factor
     let skipsRemaining = skipCount
-
-    console.info({
-      factor,
-      remainder,
-      skipCount,
-    })
 
     values.forEach(value => {
       if (skipsRemaining > 0) {
