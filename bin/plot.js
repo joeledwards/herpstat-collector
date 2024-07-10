@@ -31,8 +31,13 @@ app(async () => {
 
   const files = await fs.promises.readdir(dataDir)
   const [file] = files.filter(file => file.includes(dateStr))
-  const filePath = path.join(dataDir, file);
 
+  if (file == null) {
+    console.info(`No data found for date ${date.format('YYYY-MM-DD')}`)
+    process.exit(1)
+  }
+
+  const filePath = path.join(dataDir, file);
   const data = {}
 
   console.info({
