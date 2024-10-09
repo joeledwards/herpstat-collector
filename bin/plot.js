@@ -57,16 +57,22 @@ app(async () => {
         }
       } = record
 
+      const {
+        metadata: {
+          timestamp
+        }
+      } = record
+
       for (let i = 1; i <= numOutputs; i++) {
         const outputId = `output${i}`
         const {
           outputnickname: outputName,
-          probereadingTEMP: temp
+          probereadingTEMP: temperature
         } = record[outputId]
 
         let outputData = data[outputId] || { outputName, temps: [] }
 
-        outputData.temps.push(temp)
+        outputData.temps.push({ temperature, timestamp: moment(timestamp) })
 
         data[outputId] = outputData
       }
@@ -82,12 +88,36 @@ app(async () => {
       temps
     } = data[outputId]
 
-    const tempSamples = downsample(temps, width)
-    //console.info(`Plotting ${tempSamples.length} of ${temps.length} temperatures`)
+    const minTs = minValue(temps.map(t => t.timestamp.toISOString()))
+    const maxTs = maxValue(temps.map(t => t.timestamp.toISOString()))
+
+    const tempValues = temps.map(t => t.temperature)
+
+    const tempSamples = downsample(tempValues, width)
+    console.info(`Start ${minTs}`)
+    console.info(`End   ${maxTs}`)
     const plot = asciiplot.plot(tempSamples, { height: 10 })
     console.info(`${outputId} [${outputName}]\n${plot}\n`)
   })
 })
+
+function maxValue (list) {
+  return list.reduce((acc, v) => {
+    if (acc == null) return v
+    if (v == null) return acc
+    if (acc > v) return acc
+    return v
+  })
+}
+
+function minValue (list) {
+  return list.reduce((acc, v) => {
+    if (acc == null) return v
+    if (v == null) return acc
+    if (acc < v) return acc
+    return v
+  })
+}
 
 async function readLines (file, lineHandler) {
   return new Promise((resolve, reject) => {
