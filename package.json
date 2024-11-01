@@ -24,7 +24,7 @@
   "homepage": "https://github.com/joeledwards/herpstat-collector#readme",
   "dependencies": {
     "@buzuli/app": "^1.3.0",
-    "@buzuli/json": "^2.1.1",
+    "@buzuli/json": "^2.2.0",
     "asciiplot": "^1.0.0",
     "axios": "^1.6.8",
     "byline": "^5.0.0",
